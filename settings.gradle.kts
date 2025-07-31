@@ -21,3 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "CoffeePoints"
 include(":app")
+include(":features:authorization")
+include(":dependencies:di")
+include(":dependencies:core")
+include(":dependencies:ui")
+include(":data")
