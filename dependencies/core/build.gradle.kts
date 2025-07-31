@@ -33,6 +33,8 @@ dependencies {
 
     api(libs.androidx.core.ktx)
 
+    api(libs.androidx.junit.ktx)
     testApi(libs.junit)
+    testApi(kotlin("test"))
     androidTestApi(libs.androidx.junit)
 }

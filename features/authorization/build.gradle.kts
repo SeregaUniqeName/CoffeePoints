@@ -36,4 +36,6 @@ dependencies {
     implementation(project(":dependencies:core"))
     implementation(project(":dependencies:di"))
     implementation(project(":dependencies:ui"))
+    implementation(project(":data"))
+    implementation(libs.androidx.junit.ktx)
 }

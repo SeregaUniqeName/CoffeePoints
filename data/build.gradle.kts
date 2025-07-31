@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
 
+    implementation(libs.okhttp3.loggin.interceptor)
+
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
 }
