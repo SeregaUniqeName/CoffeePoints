@@ -1,31 +1,26 @@
-
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.example.coffeepoints"
+    namespace = "com.example.coffeepointslist"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.coffeepoints"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -35,21 +30,18 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
 
     implementation(project(":dependencies:di"))
     implementation(project(":dependencies:ui"))
-    implementation(project(":dependencies:common"))
     implementation(project(":core"))
+    implementation(project(":dependencies:common"))
     implementation(project(":data"))
-    implementation(project(":features:authorization"))
-    implementation(project(":features:coffeePointsList"))
 
     implementation(libs.navigation.compose)
+    implementation(libs.gson)
+
     ksp(libs.dagger.compiler)
 }

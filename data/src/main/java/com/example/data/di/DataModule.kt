@@ -4,13 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.core.di.ApplicationScope
 import com.example.data.api.AuthorizationRepository
+import com.example.data.api.CoffeePointsRepository
 import com.example.data.impl.AuthorizationRepositoryImpl
+import com.example.data.impl.CoffeePointsRepositoryImpl
 import com.example.data.local.EncryptedStore
 import com.example.data.local.EncryptedStoreImpl
 import com.example.data.local.TokenLifetimeStore
 import com.example.data.local.TokenLifetimeStoreImpl
-import com.example.data.network.models.AuthApiFactory
-import com.example.data.network.models.AuthApiService
+import com.example.data.network.AuthApiFactory
+import com.example.data.network.AuthApiService
+import com.example.data.network.CoffeePointsApiFactory
+import com.example.data.network.CoffeePointsApiService
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,6 +25,10 @@ interface DataModule {
     @ApplicationScope
     @Binds
     fun bindAuthRepository(impl: AuthorizationRepositoryImpl) : AuthorizationRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindCoffeePointsRepository(impl: CoffeePointsRepositoryImpl) : CoffeePointsRepository
 
     @ApplicationScope
     @Binds
@@ -36,6 +44,15 @@ interface DataModule {
         @Provides
         fun provideAuthApiService() : AuthApiService {
             return AuthApiFactory.authApiService
+        }
+
+        @ApplicationScope
+        @Provides
+        fun provideCoffeePointsApiService(
+            tokenLifetimeStore: TokenLifetimeStore,
+            encryptedStore: EncryptedStore
+        ) : CoffeePointsApiService {
+            return CoffeePointsApiFactory(tokenLifetimeStore, encryptedStore).coffeePointsApiService
         }
 
         @ApplicationScope

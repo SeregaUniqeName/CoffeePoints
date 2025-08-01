@@ -2,4 +2,10 @@
     <string name="app_name">CoffeePoints</string>
     <string name="password">пароль</string>
     <string name="log_in">войти</string>
+    <string name="password_input_error"><![CDATA[Пароль должен содержать от 6 до 8 символов, хотя бы одну заглавную и строчную латинскую букву, а также хотя бы одно число и спецсимвол (!@#$%^&amp;*)]]></string>
+    <string name="password_matches_error">Пароли не совпадают!</string>
+    <string name="password_confirm">Повторите пароль</string>
+    <string name="registration">Регистрация</string>
+    <string name="on_map">На карте</string>
+    <string name="distance">%d км от вас</string>
 </resources>

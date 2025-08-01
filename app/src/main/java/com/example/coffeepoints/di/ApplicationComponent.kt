@@ -2,6 +2,7 @@ package com.example.coffeepoints.di
 
 import android.content.Context
 import com.example.authorization.di.AuthComponent
+import com.example.coffeepointslist.di.CoffeePointsComponent
 import com.example.core.di.ApplicationScope
 import com.example.data.di.DataModule
 import dagger.BindsInstance
@@ -14,6 +15,7 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun getAuthScreenComponentFactory() : AuthComponent.Factory
+    fun coffeePointsScreenComponentFactory() : CoffeePointsComponent.Factory
 
     @Component.Factory
     interface Factory {

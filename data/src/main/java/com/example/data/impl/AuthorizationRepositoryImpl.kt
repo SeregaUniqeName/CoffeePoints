@@ -7,7 +7,7 @@ import com.example.data.UserDoNotExistException
 import com.example.data.api.AuthorizationRepository
 import com.example.data.local.EncryptedStore
 import com.example.data.local.TokenLifetimeStore
-import com.example.data.network.models.AuthApiService
+import com.example.data.network.AuthApiService
 import com.example.data.network.models.UserPost
 import jakarta.inject.Inject
 import retrofit2.HttpException

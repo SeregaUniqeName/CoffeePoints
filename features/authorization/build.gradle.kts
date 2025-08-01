@@ -39,6 +39,5 @@ dependencies {
     implementation(project(":dependencies:common"))
     implementation(project(":data"))
 
-    implementation(libs.androidx.junit.ktx)
     ksp(libs.dagger.compiler)
 }

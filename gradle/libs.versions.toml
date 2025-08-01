@@ -17,6 +17,8 @@ room = "2.7.2"
 junitKtx = "1.3.0"
 logginInterceptor = "5.1.0"
 navGraph = "2.9.3"
+playServicesLocation = "21.3.0"
+gson = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +52,10 @@ androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.
 okhttp3-loggin-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logginInterceptor" }
 
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navGraph" }
+
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

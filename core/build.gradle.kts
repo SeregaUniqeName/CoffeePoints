@@ -34,8 +34,11 @@ dependencies {
 
     implementation(project(":dependencies:common"))
     implementation(project(":dependencies:di"))
+
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewModel.ktx)
+
+    implementation(libs.play.services.location)
 
     ksp(libs.dagger.compiler)
 }

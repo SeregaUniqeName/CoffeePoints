@@ -1,4 +1,4 @@
-package com.example.data.network.models
+package com.example.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

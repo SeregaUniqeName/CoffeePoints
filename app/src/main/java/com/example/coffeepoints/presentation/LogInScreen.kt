@@ -26,6 +26,7 @@ import com.example.authorization.presentation.components.LogInPasswordTextField
 import com.example.authorization.presentation.components.LogInTextField
 import com.example.coffeepoints.ui.theme.CoffeePointsTheme
 import com.example.coffeepoints.R
+import com.example.coffeepoints.getApplicationComponent
 import com.example.coffeepoints.utils.ShowToast
 
 @Composable
@@ -34,19 +35,19 @@ fun LogInScreen(
     onNextScreen: () -> Unit,
 ) {
 
-//    val component = getApplicationComponent()
-//        .getAuthScreenComponentFactory().create()
-//    val viewModel: LogInViewModel = viewModel(factory = component.getViewModelsFactory())
-//    val screenState = viewModel.screenState.collectAsState()
+    val component = getApplicationComponent()
+        .getAuthScreenComponentFactory().create()
+    val viewModel: LogInViewModel = viewModel(factory = component.getViewModelsFactory())
+    val screenState = viewModel.screenState.collectAsState()
 
-//    LogInContent(
-//        modifier = Modifier,
-//        screenState = screenState,
-//        onLoginChange = { viewModel.changeLogin(it) },
-//        onPasswordChange = { viewModel.changePassword(it) },
-//        onNextScreen = onNextScreen,
-//        logInUser = { login, password -> viewModel.logIn(login, password) }
-//    )
+    LogInContent(
+        modifier = Modifier,
+        screenState = screenState,
+        onLoginChange = { viewModel.changeLogin(it) },
+        onPasswordChange = { viewModel.changePassword(it) },
+        onNextScreen = onNextScreen,
+        logInUser = { login, password -> viewModel.logIn(login, password) }
+    )
 }
 
 @Composable

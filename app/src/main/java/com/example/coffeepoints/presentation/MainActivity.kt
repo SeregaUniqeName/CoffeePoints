@@ -1,6 +1,8 @@
 package com.example.coffeepoints.presentation
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,13 +25,17 @@ import com.example.coffeepoints.navigation.AppNavGraph
 import com.example.coffeepoints.navigation.Screen
 import com.example.coffeepoints.navigation.rememberNavigationState
 import com.example.coffeepoints.ui.theme.CoffeePointsTheme
+import com.example.core.utils.MyLocationManager
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var locationManager: MyLocationManager
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        locationManager = MyLocationManager(applicationContext, this)
 
         setContent {
             CoffeePointsTheme {
@@ -66,10 +72,42 @@ class MainActivity : ComponentActivity() {
                             LogInScreen(paddingValues) {
                                 navigationState.navigateTo(Screen.CoffeeShopList.route)
                             }
-                        }
+                        },
+                        coffeeShopListContent = {
+                            CoffeePointsScreen(
+                                paddingValues = paddingValues,
+                                onNextScreen = { navigationState.navigateTo(Screen.CoffeeShopMap.route) },
+                                onTokenExpired = { navigationState.navigateStackCleared(Screen.LogIn.route) },
+                                locationManager = locationManager,
+                                onMapScreen = {  },
+                            )
+                        },
+                        coffeePointMenuContent = { CoffeePointMenuScreen(
+                            paddingValues = paddingValues,
+                            item = it
+                        ) },
+                        coffeeShopMapContent = { }
                     )
                 }
             }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+        deviceId: Int
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
+
+        if (requestCode == MyLocationManager.Companion.LOCATION_PERMISSION_REQUEST &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationManager.getCurrentLocation()
+        } else {
+            Toast.makeText(this, "Location permission denied", Toast.LENGTH_LONG).show()
         }
     }
 

@@ -1,5 +1,7 @@
-package com.example.data.network.models
+package com.example.data.network
 
+import com.example.data.network.models.TokenDTO
+import com.example.data.network.models.UserPost
 import retrofit2.http.Body
 import retrofit2.http.POST
 
