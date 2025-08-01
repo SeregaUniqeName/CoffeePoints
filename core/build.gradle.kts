@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -31,10 +32,10 @@ android {
 
 dependencies {
 
-    api(libs.androidx.core.ktx)
+    implementation(project(":dependencies:common"))
+    implementation(project(":dependencies:di"))
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewModel.ktx)
 
-    api(libs.androidx.junit.ktx)
-    testApi(libs.junit)
-    testApi(kotlin("test"))
-    androidTestApi(libs.androidx.junit)
+    ksp(libs.dagger.compiler)
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CoffeePoints</string>
+    <string name="password">пароль</string>
+    <string name="log_in">войти</string>
 </resources>

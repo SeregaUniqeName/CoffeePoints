@@ -33,9 +33,12 @@ android {
 
 dependencies {
 
-    implementation(project(":dependencies:core"))
     implementation(project(":dependencies:di"))
     implementation(project(":dependencies:ui"))
+    implementation(project(":core"))
+    implementation(project(":dependencies:common"))
     implementation(project(":data"))
+
     implementation(libs.androidx.junit.ktx)
+    ksp(libs.dagger.compiler)
 }

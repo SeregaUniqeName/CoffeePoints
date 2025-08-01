@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
+//    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,5 +33,5 @@ android {
 dependencies {
 
     api(libs.dagger)
-    ksp(libs.dagger.compiler)
+//    ksp(libs.dagger.compiler)
 }

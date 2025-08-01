@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,7 +19,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,9 +42,13 @@ android {
 
 dependencies {
 
-    implementation(project(":dependencies:core"))
     implementation(project(":dependencies:di"))
     implementation(project(":dependencies:ui"))
+    implementation(project(":dependencies:common"))
+    implementation(project(":core"))
+    implementation(project(":data"))
+    implementation(project(":features:authorization"))
 
-
+    implementation(libs.navigation.compose)
+    ksp(libs.dagger.compiler)
 }

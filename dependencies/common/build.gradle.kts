@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.example.common"
     compileSdk = 36
 
     defaultConfig {
@@ -32,17 +31,10 @@ android {
 
 dependencies {
 
-    implementation(project(":dependencies:di"))
-    implementation(project(":dependencies:common"))
-    implementation(project(":core"))
+    api(libs.androidx.core.ktx)
 
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson.converter)
-
-    implementation(libs.okhttp3.loggin.interceptor)
-
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-
-    ksp(libs.dagger.compiler)
+    api(libs.androidx.junit.ktx)
+    testApi(libs.junit)
+    testApi(kotlin("test"))
+    androidTestApi(libs.androidx.junit)
 }
