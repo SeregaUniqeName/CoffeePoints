@@ -7,8 +7,6 @@ import com.example.data.api.AuthorizationRepository
 import com.example.data.api.CoffeePointsRepository
 import com.example.data.impl.AuthorizationRepositoryImpl
 import com.example.data.impl.CoffeePointsRepositoryImpl
-import com.example.data.local.EncryptedStore
-import com.example.data.local.EncryptedStoreImpl
 import com.example.data.local.TokenLifetimeStore
 import com.example.data.local.TokenLifetimeStoreImpl
 import com.example.data.network.AuthApiFactory
@@ -34,9 +32,6 @@ interface DataModule {
     @Binds
     fun bindTokenLifetimeStore(impl: TokenLifetimeStoreImpl) : TokenLifetimeStore
 
-    @ApplicationScope
-    @Binds
-    fun bindEncryptedStore(impl: EncryptedStoreImpl) : EncryptedStore
 
     companion object {
 
@@ -49,10 +44,9 @@ interface DataModule {
         @ApplicationScope
         @Provides
         fun provideCoffeePointsApiService(
-            tokenLifetimeStore: TokenLifetimeStore,
-            encryptedStore: EncryptedStore
+            tokenLifetimeStore: TokenLifetimeStore
         ) : CoffeePointsApiService {
-            return CoffeePointsApiFactory(tokenLifetimeStore, encryptedStore).coffeePointsApiService
+            return CoffeePointsApiFactory(tokenLifetimeStore).coffeePointsApiService
         }
 
         @ApplicationScope

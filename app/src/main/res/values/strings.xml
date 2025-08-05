@@ -7,5 +7,5 @@
     <string name="password_confirm">Повторите пароль</string>
     <string name="registration">Регистрация</string>
     <string name="on_map">На карте</string>
-    <string name="distance">%d км от вас</string>
+    <string name="distance">%.2f км от вас</string>
 </resources>

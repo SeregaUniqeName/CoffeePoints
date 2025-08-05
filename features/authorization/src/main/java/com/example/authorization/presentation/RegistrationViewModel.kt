@@ -9,22 +9,19 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
 ) : ViewModel() {
 
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        _screenState.value = RegistrationScreenState.RegistrationScreenContent(
-            login = cachedLogin,
-            password = "",
-            passwordConfirm = "",
-            error = RegistrationScreenState.RegistrationScreenContent.RegistrationErrors.ConnectionError(message = throwable.message.toString())
-        )
+        rollbackState()
     }
 
     private var cachedLogin: String = ""
@@ -65,14 +62,18 @@ class RegistrationViewModel @Inject constructor(
         return (_screenState.value as RegistrationScreenState.RegistrationScreenContent).password != input
     }
 
-    fun register(login: String, password: String) {
+    fun register(login: String, password: String, navigateTo: () -> Unit) {
         cachedLogin = login
         _screenState.value = RegistrationScreenState.Loading
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             try {
                 ensureActive()
                 registerUserUseCase(login, password)
-                _screenState.value = RegistrationScreenState.RegistrationSuccess
+                withContext(Dispatchers.Main) {
+                    navigateTo()
+                }
+                delay(1000)
+                rollbackState()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -83,6 +84,14 @@ class RegistrationViewModel @Inject constructor(
 
     fun clearInputs() {
         _screenState.value = (_screenState.value as RegistrationScreenState.RegistrationScreenContent).copy(
+            password = "",
+            passwordConfirm = ""
+        )
+    }
+
+    private fun rollbackState() {
+        _screenState.value = RegistrationScreenState.RegistrationScreenContent(
+            login = cachedLogin,
             password = "",
             passwordConfirm = ""
         )

@@ -14,8 +14,6 @@ sealed class LogInScreenState {
             data class ConnectionError(val message: String) : LogInErrors
             data object Empty : LogInErrors
         }
-
     }
 
-    data object LogInSuccess : LogInScreenState()
 }

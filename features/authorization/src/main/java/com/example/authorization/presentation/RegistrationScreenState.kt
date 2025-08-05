@@ -17,6 +17,4 @@ sealed class RegistrationScreenState() {
         }
 
     }
-
-    data object RegistrationSuccess : RegistrationScreenState()
 }

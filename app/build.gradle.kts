@@ -51,5 +51,12 @@ dependencies {
     implementation(project(":features:coffeePointsList"))
 
     implementation(libs.navigation.compose)
+
+    implementation(libs.gson)
+
+    implementation(libs.play.services.location)
+
+    implementation(libs.accompanist.permissions)
+
     ksp(libs.dagger.compiler)
 }

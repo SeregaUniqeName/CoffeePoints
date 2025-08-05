@@ -11,11 +11,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,9 +47,11 @@ fun LogInScreen(
         screenState = screenState,
         onLoginChange = { viewModel.changeLogin(it) },
         onPasswordChange = { viewModel.changePassword(it) },
-        onNextScreen = onNextScreen,
-        logInUser = { login, password -> viewModel.logIn(login, password) }
+        logInUser = { login, password ->
+            viewModel.logIn(login, password, onNextScreen)
+        },
     )
+
 }
 
 @Composable
@@ -56,7 +60,6 @@ fun LogInContent(
     screenState: State<LogInScreenState>,
     onLoginChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onNextScreen: () -> Unit,
     logInUser: (login: String, password: String) -> Unit,
 ) {
 
@@ -64,7 +67,10 @@ fun LogInContent(
 
     when (currentState) {
         LogInScreenState.Loading -> {
-            Box(contentAlignment = Alignment.Center) {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 CircularProgressIndicator()
             }
         }
@@ -118,10 +124,6 @@ fun LogInContent(
             }
         }
 
-        LogInScreenState.LogInSuccess -> {
-            onNextScreen()
-        }
-
     }
 }
 
@@ -140,7 +142,6 @@ fun LogInScreenPreview() {
             ),
             onLoginChange = { it },
             onPasswordChange = { it },
-            onNextScreen = { },
             logInUser = { _, _ -> },
         )
     }

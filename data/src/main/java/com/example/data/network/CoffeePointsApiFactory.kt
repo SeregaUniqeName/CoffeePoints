@@ -1,8 +1,5 @@
 package com.example.data.network
 
-import com.example.data.TOKEN_ALIAS
-import com.example.data.TokenOutOfTimeException
-import com.example.data.local.EncryptedStore
 import com.example.data.local.TokenLifetimeStore
 import jakarta.inject.Inject
 import okhttp3.OkHttpClient
@@ -12,23 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CoffeePointsApiFactory @Inject constructor(
     tokenLifetimeStore: TokenLifetimeStore,
-    private val encryptedStore: EncryptedStore,
 ) {
 
-    private val encryptedToken: String
-
-    init {
-        val tokenData = tokenLifetimeStore.get()
-        val list = tokenData.toList()
-        val start = list[1].toLong()
-        val lifetime = list[2].toLong()
-        val current = System.currentTimeMillis()
-        if (current - start < lifetime) {
-            encryptedToken = list[0]
-        } else {
-            throw TokenOutOfTimeException()
-        }
-    }
+    private val token = tokenLifetimeStore.getToken()
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
@@ -36,18 +19,12 @@ class CoffeePointsApiFactory @Inject constructor(
         })
         .addInterceptor { chain ->
             val originalRequest = chain.request()
-            val newUrl = originalRequest
-                .url
-                .newBuilder()
-                .addQueryParameter(TOKEN,
-                    encryptedStore.decrypt(encryptedToken, TOKEN_ALIAS)
-                )
-                .build()
 
             val newRequest = originalRequest
                 .newBuilder()
-                .url(newUrl)
+                .addHeader(AUTHORIZATION, "$BEARER ${tokenLifetimeStore.getToken()}")
                 .build()
+
             chain.proceed(newRequest)
         }
         .build()
@@ -62,7 +39,8 @@ class CoffeePointsApiFactory @Inject constructor(
 
     companion object {
         private const val BASE_URL = "http://212.41.30.90:35005/"
-        private const val TOKEN = "token"
+        private const val AUTHORIZATION = "Authorization"
+        private const val BEARER = "Bearer"
     }
 
 }

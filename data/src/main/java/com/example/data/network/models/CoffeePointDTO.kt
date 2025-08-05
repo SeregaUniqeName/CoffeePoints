@@ -11,5 +11,5 @@ data class CoffeePointDTO(
 
 data class CoordinatesDTO(
     @SerializedName("latitude")val latitude: Double,
-    @SerializedName("latitude")val longitude: Double,
+    @SerializedName("longitude")val longitude: Double,
 )

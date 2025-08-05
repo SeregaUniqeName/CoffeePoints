@@ -5,24 +5,26 @@ import androidx.lifecycle.viewModelScope
 import com.example.authorization.useCases.LogInUseCase
 import jakarta.inject.Inject
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LogInViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase,
 ) : ViewModel() {
 
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        _screenState.value = LogInScreenState.LogInScreenContent(
-            login = cachedLogin,
-            password = "",
-            error = LogInScreenState.LogInScreenContent.LogInErrors.ConnectionError(message = throwable.message.toString())
-        )
+        rollbackState()
     }
 
     private var cachedLogin: String = ""
@@ -45,20 +47,29 @@ class LogInViewModel @Inject constructor(
             (_screenState.value as LogInScreenState.LogInScreenContent).copy(password = input)
     }
 
-    fun logIn(login: String, password: String) {
-        _screenState.value = LogInScreenState.Loading
+    fun logIn(login: String, password: String, navigateTo: () -> Unit) {
         cachedLogin = login
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        _screenState.value = LogInScreenState.Loading
+        viewModelScope.launch(exceptionHandler) {
             try {
                 ensureActive()
                 logInUseCase.invoke(login, password)
-                _screenState.value = LogInScreenState.LogInSuccess
+                navigateTo()
+                delay(1000)
+                rollbackState()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 throw e
             }
         }
+    }
+
+    private fun rollbackState() {
+        _screenState.value = LogInScreenState.LogInScreenContent(
+            login = cachedLogin,
+            password = "",
+        )
     }
 
     override fun onCleared() {

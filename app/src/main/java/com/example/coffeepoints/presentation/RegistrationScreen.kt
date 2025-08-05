@@ -49,7 +49,7 @@ fun RegistrationScreen(
         validatePassword = { viewModel.validatePassword(it) },
         validatePasswordConfirm = { viewModel.validatePasswordConfirm(it) },
         onNextScreen = onNextScreen,
-        registerUser = { login, password -> viewModel.register(login, password) },
+        registerUser = { login, password -> viewModel.register(login, password, onNextScreen) },
         onClearInputs = { viewModel.clearInputs() }
     )
 }
@@ -76,7 +76,10 @@ fun RegistrationContent(
 
     when (currentState) {
         RegistrationScreenState.Loading -> {
-            Box(contentAlignment = Alignment.Center) {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 CircularProgressIndicator()
             }
         }
@@ -148,9 +151,6 @@ fun RegistrationContent(
                 }
 
             }
-        }
-        RegistrationScreenState.RegistrationSuccess -> {
-            onNextScreen()
         }
     }
 }

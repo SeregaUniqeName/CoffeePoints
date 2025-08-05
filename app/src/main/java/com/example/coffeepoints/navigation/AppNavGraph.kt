@@ -46,7 +46,7 @@ fun AppNavGraph(
                 it.arguments?.getParcelable(Screen.KEY_COFFEE_POINT, CoffeePointEntity::class.java)
                     ?: throw RuntimeException("Args is null")
             } else {
-                it.arguments?.getParcelable<CoffeePointEntity>(Screen.KEY_COFFEE_POINT)
+                it.arguments?.getParcelable(Screen.KEY_COFFEE_POINT)
                     ?: throw RuntimeException("Args is null")
             }
             coffeePointMenuContent(feedPost)

@@ -38,7 +38,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewModel.ktx)
 
-    implementation(libs.play.services.location)
-
     ksp(libs.dagger.compiler)
 }

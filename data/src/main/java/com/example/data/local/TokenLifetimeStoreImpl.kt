@@ -8,20 +8,22 @@ class TokenLifetimeStoreImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences,
 ) : TokenLifetimeStore {
 
-    override fun save(encryptedToken: String, currentTime: Long, lifetime: Long) {
+    override fun save(encryptedToken: String) {
         sharedPreferences.edit {
-            putStringSet(
-                CURRENT_USER,
-                mutableSetOf(encryptedToken, currentTime.toString(), lifetime.toString())
+            putString(
+                TOKEN,
+                encryptedToken
             )
         }
     }
 
-    override fun get() : Set<String> {
-        return sharedPreferences.getStringSet(CURRENT_USER, mutableSetOf("", "0", "0"))!!
+    override fun getToken(): String {
+        val result = sharedPreferences.getString(TOKEN, "")
+        if (result.isNullOrBlank()) throw RuntimeException("Token doesn't exist!!")
+        else return result
     }
 
     companion object {
-        private const val CURRENT_USER = "currentUser"
+        private const val TOKEN = "token"
     }
 }

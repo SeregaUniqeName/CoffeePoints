@@ -31,21 +31,16 @@ class CoffeePointsViewModel @Inject constructor(
     )
     val screenState get() = _screenState.asStateFlow()
 
-    fun getPoints(lat: Double, lon: Double) {
+    fun getPoints(lat: Double?, lon: Double?) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             try {
                 ensureActive()
-                if (_screenState.value is CoffeePointsScreenState.Loaded) {
-                    calculateDistanceForList(
-                        lat,
-                        lon,
-                        (_screenState.value as CoffeePointsScreenState.Loaded).coffeePointsList
-                    )
-                } else {
-                    val result = getAllPointsUseCase()
+                val result = getAllPointsUseCase()
+                if (lat != null && lon != null) {
                     calculateDistanceForList(lat, lon, result)
+                } else {
+                    _screenState.value = CoffeePointsScreenState.Loaded(coffeePointsList = result)
                 }
-
             } catch (e: CancellationException) {
                 throw e
             } catch (e: TokenOutOfTimeException) {
