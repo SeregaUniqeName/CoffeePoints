@@ -1,6 +1,5 @@
 package com.example.coffeepoints.navigation
 
-import com.example.coffeepointslist.models.CoffeePointEntity
 import com.google.gson.Gson
 
 sealed class Screen(
@@ -15,8 +14,8 @@ sealed class Screen(
 
         private const val ROUTE_FOR_ARGS = "coffeePointMenu"
 
-        fun getRouteWithArgs(item: CoffeePointEntity): String {
-            val itemJson = Gson().toJson(item)
+        fun getRouteWithArgs(id: Int): String {
+            val itemJson = Gson().toJson(id)
             return "$ROUTE_FOR_ARGS/${itemJson}"
         }
     }

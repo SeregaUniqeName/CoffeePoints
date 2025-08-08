@@ -1,8 +1,10 @@
 package com.example.coffeepoints.presentation
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresPermission
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,11 +19,13 @@ import com.example.coffeepoints.navigation.AppNavGraph
 import com.example.coffeepoints.navigation.Screen
 import com.example.coffeepoints.navigation.rememberNavigationState
 import com.example.coffeepoints.ui.theme.CoffeePointsTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+
 
 class MainActivity : ComponentActivity() {
 
-
-    @OptIn(ExperimentalMaterial3Api::class)
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,10 +76,15 @@ class MainActivity : ComponentActivity() {
                         coffeePointMenuContent = {
                             CoffeePointMenuScreen(
                                 paddingValues = paddingValues,
-                                item = it
+                                id = it
                             )
                         },
-                        coffeeShopMapContent = { }
+                        coffeeShopMapContent = {
+                            CoffeeShopMapScreen(
+                                paddingValues = paddingValues,
+                                onNextScreen = { navigationState.navigateToMenu(it) }
+                            )
+                        }
                     )
                 }
             }

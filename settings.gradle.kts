@@ -16,6 +16,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("http://maven.google.com/")
+            isAllowInsecureProtocol = true
+        }
     }
 }
 
@@ -28,3 +32,4 @@ include(":data")
 include(":dependencies:common")
 include(":core")
 include(":features:coffeePointsList")
+include(":features:coffeePointsMap")

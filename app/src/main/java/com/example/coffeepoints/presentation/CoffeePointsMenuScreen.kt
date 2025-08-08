@@ -7,6 +7,6 @@ import com.example.coffeepointslist.models.CoffeePointEntity
 @Composable
 fun CoffeePointMenuScreen(
     paddingValues: PaddingValues,
-    item: CoffeePointEntity
+    id: Int
 ) {
 }

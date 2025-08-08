@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.coffeepointslist.models.CoffeePointEntity
+import com.example.coffeepointsmap.models.MapEntity
 
 class NavigationState(
     val navHostController: NavHostController
@@ -17,8 +18,8 @@ class NavigationState(
         }
     }
 
-    fun navigateToMenu(coffeePoint: CoffeePointEntity) {
-        navHostController.navigate(Screen.CoffeePointMenu.getRouteWithArgs(coffeePoint))
+    fun navigateToMenu(id: Int) {
+        navHostController.navigate(Screen.CoffeePointMenu.getRouteWithArgs(id))
     }
 
     fun navigateOnTokenExpire(route: String) {

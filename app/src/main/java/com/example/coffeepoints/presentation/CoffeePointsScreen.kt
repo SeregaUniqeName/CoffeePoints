@@ -39,13 +39,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.location.LocationServices
-
 @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CoffeePointsScreen(
     paddingValues: PaddingValues,
-    onNextScreen: (CoffeePointEntity) -> Unit,
+    onNextScreen: (Int) -> Unit,
     onMapScreen: () -> Unit,
     onTokenExpired: () -> Unit,
 ) {
@@ -84,14 +83,12 @@ fun CoffeePointsScreen(
     )
 }
 
-@RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CoffeePointsContent(
     modifier: Modifier,
     screenState: State<CoffeePointsScreenState>,
     paddingValues: PaddingValues,
-    onNextScreen: (CoffeePointEntity) -> Unit,
+    onNextScreen: (Int) -> Unit,
     onDataLoad: () -> Unit,
     onTokenExpired: () -> Unit,
     onMapScreen: () -> Unit,
@@ -113,7 +110,6 @@ fun CoffeePointsContent(
             Column {
                 LazyColumn(
                     modifier = modifier
-                        .fillMaxSize()
                         .padding(8.dp),
                     contentPadding = paddingValues,
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -123,20 +119,18 @@ fun CoffeePointsContent(
                         CoffeePointCard(
                             modifier = modifier,
                             item = currentItem,
-                            onNextScreen = { onNextScreen(it) },
+                            onNextScreen = { onNextScreen(it.id) },
                         )
                     }
                 }
+                Button(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp), onClick = onMapScreen
+                ) {
+                    Text(text = stringResource(R.string.on_map))
+                }
             }
-
-            Button(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp), onClick = onMapScreen
-            ) {
-                Text(text = stringResource(R.string.on_map))
-            }
-
         }
 
         CoffeePointsScreenState.Loading -> {

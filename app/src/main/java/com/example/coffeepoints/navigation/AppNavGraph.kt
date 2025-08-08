@@ -1,12 +1,11 @@
 package com.example.coffeepoints.navigation
 
-import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.coffeepointslist.models.CoffeePointEntity
 
 @Composable
 fun AppNavGraph(
@@ -15,7 +14,7 @@ fun AppNavGraph(
     logInScreenContent: @Composable () -> Unit,
     coffeeShopListContent: @Composable () -> Unit,
     coffeeShopMapContent: @Composable () -> Unit,
-    coffeePointMenuContent: @Composable (CoffeePointEntity) -> Unit,
+    coffeePointMenuContent: @Composable (Int) -> Unit,
 ) {
 
     NavHost(
@@ -38,18 +37,13 @@ fun AppNavGraph(
             route = Screen.CoffeePointMenu.route,
             arguments = listOf(
                 navArgument(Screen.KEY_COFFEE_POINT) {
-                    type = CoffeePointEntity.NavigationType
+                    type = NavType.IntType
                 }
             )
         ) {
-            val feedPost = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                it.arguments?.getParcelable(Screen.KEY_COFFEE_POINT, CoffeePointEntity::class.java)
+            val id = it.arguments?.getInt(Screen.KEY_COFFEE_POINT)
                     ?: throw RuntimeException("Args is null")
-            } else {
-                it.arguments?.getParcelable(Screen.KEY_COFFEE_POINT)
-                    ?: throw RuntimeException("Args is null")
-            }
-            coffeePointMenuContent(feedPost)
+            coffeePointMenuContent(id)
         }
     }
 
