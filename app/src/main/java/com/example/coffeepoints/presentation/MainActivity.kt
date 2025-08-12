@@ -73,10 +73,12 @@ class MainActivity : ComponentActivity() {
                                 onMapScreen = { navigationState.navigateTo(Screen.CoffeeShopMap.route) },
                             )
                         },
-                        coffeePointMenuContent = {
+                        coffeePointMenuContent = { id ->
                             CoffeePointMenuScreen(
                                 paddingValues = paddingValues,
-                                id = it
+                                id = id,
+                                onNextScreen = { navigationState.navigateToConfirm(it) },
+                                onTokenExpired = { navigationState.navigateOnTokenExpire(Screen.LogIn.route) },
                             )
                         },
                         coffeeShopMapContent = {

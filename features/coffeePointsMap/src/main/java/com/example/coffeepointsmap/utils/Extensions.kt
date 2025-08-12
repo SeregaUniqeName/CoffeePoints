@@ -1,9 +1,9 @@
 package com.example.coffeepointsmap.utils
 
 import com.example.coffeepointsmap.models.MapEntity
-import com.example.data.local.models.MapItemDb
+import com.example.data.local.models.MapItemDbModel
 
-fun MapItemDb.toEntity() : MapEntity {
+fun MapItemDbModel.toEntity() : MapEntity {
     return MapEntity(
         id = this.id,
         name = this.name,

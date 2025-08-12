@@ -22,7 +22,7 @@ class CoffeePointsApiFactory @Inject constructor(
 
             val newRequest = originalRequest
                 .newBuilder()
-                .addHeader(AUTHORIZATION, "$BEARER ${tokenLifetimeStore.getToken()}")
+                .addHeader(AUTHORIZATION, "$BEARER $token")
                 .build()
 
             chain.proceed(newRequest)

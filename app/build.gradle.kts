@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":features:authorization"))
     implementation(project(":features:coffeePointsList"))
     implementation(project(":features:coffeePointsMap"))
+    implementation(project(":features:coffeePointsMenu"))
 
     implementation(libs.navigation.compose)
 
@@ -70,6 +71,8 @@ dependencies {
     implementation(libs.accompanist.permissions)
 
     implementation(libs.yandex.maps)
+
+    implementation(libs.glide.compose)
 
     ksp(libs.dagger.compiler)
 }

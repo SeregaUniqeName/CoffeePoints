@@ -50,7 +50,7 @@ fun CoffeePointsScreen(
 ) {
 
     val component = getApplicationComponent()
-        .coffeePointsScreenComponentFactory().create()
+        .getCoffeePointsScreenComponentFactory().create()
     val viewModel: CoffeePointsViewModel = viewModel(factory = component.getViewModelsFactory())
     val screenState = viewModel.screenState.collectAsState()
 
@@ -107,12 +107,16 @@ fun CoffeePointsContent(
         }
 
         is CoffeePointsScreenState.Loaded -> {
-            Column {
+            Column(
+                modifier = modifier.fillMaxSize().padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 LazyColumn(
                     modifier = modifier
-                        .padding(8.dp),
+                        .padding(8.dp)
+                        .weight(1F),
                     contentPadding = paddingValues,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     val items = currentState.coffeePointsList
                     items(items) { currentItem ->
@@ -126,7 +130,7 @@ fun CoffeePointsContent(
                 Button(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp), onClick = onMapScreen
+                        .padding(horizontal = 16.dp), onClick = onMapScreen
                 ) {
                     Text(text = stringResource(R.string.on_map))
                 }

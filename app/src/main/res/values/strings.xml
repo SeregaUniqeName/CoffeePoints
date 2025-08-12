@@ -8,4 +8,6 @@
     <string name="registration">Регистрация</string>
     <string name="on_map">На карте</string>
     <string name="distance">%.2f км от вас</string>
+    <string name="go_to_payment">Перейти к оплате</string>
+    <string name="price">%d руб</string>
 </resources>

@@ -30,7 +30,7 @@ fun CoffeeShopMapScreen(
 ) {
 
     val component = getApplicationComponent()
-        .coffeePointsMapScreenComponentFactory().create()
+        .getCoffeePointsMapScreenComponentFactory().create()
     val viewModel: MapItemsViewModel = viewModel(factory = component.getViewModelsFactory())
 
     val locations = viewModel.pointsList.collectAsState()

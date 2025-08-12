@@ -21,6 +21,7 @@ playServicesLocation = "21.3.0"
 gson = "2.13.1"
 accompanistPermissions = "0.37.3"
 yandexMapSdk = "4.19.0-lite"
+glideCompose = "1.0.0-beta01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -62,6 +63,8 @@ accompanist-permissions = { group = "com.google.accompanist", name = "accompanis
 yandex-maps = { group = "com.yandex.android", name = "maps.mobile", version.ref = "yandexMapSdk" }
 
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glideCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

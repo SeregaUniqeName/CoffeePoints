@@ -4,15 +4,19 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.core.di.ApplicationScope
 import com.example.data.api.AuthorizationRepository
+import com.example.data.api.CoffeePointMenuRepository
 import com.example.data.api.CoffeePointsRepository
 import com.example.data.api.MapPointsRepository
 import com.example.data.impl.AuthorizationRepositoryImpl
+import com.example.data.impl.CoffeePointMenuRepositoryImpl
 import com.example.data.impl.CoffeePointsRepositoryImpl
 import com.example.data.impl.MapPointsRepositoryImpl
 import com.example.data.local.TokenLifetimeStore
 import com.example.data.local.TokenLifetimeStoreImpl
 import com.example.data.local.database.MapItemsDao
 import com.example.data.local.database.MapItemsDatabase
+import com.example.data.local.database.MenuItemsDao
+import com.example.data.local.database.MenuItemsDatabase
 import com.example.data.network.AuthApiFactory
 import com.example.data.network.AuthApiService
 import com.example.data.network.CoffeePointsApiFactory
@@ -39,6 +43,10 @@ interface DataModule {
     @ApplicationScope
     @Binds
     fun bindMapPointsRepository(impl: MapPointsRepositoryImpl) : MapPointsRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindCoffeePointMenuRepository(impl: CoffeePointMenuRepositoryImpl) : CoffeePointMenuRepository
 
 
     companion object {
@@ -67,6 +75,12 @@ interface DataModule {
         @Provides
         fun provideMapItemsDatabase(context: Context) : MapItemsDao {
             return MapItemsDatabase.getInstance(context).mapItemsDao()
+        }
+
+        @ApplicationScope
+        @Provides
+        fun provideMenuItemsDatabase(context: Context) : MenuItemsDao {
+            return MenuItemsDatabase.getInstance(context).menuItemsDao()
         }
 
         private const val SHARED_TOKEN_LIFETIME = "tokenLifetime"

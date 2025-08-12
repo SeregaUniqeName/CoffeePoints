@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "map_items")
-data class MapItemDb(
+data class MapItemDbModel(
     @PrimaryKey val id: Int,
     val name: String,
     val lat: Double,

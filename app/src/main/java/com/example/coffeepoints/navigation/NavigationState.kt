@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.coffeepointslist.models.CoffeePointEntity
-import com.example.coffeepointsmap.models.MapEntity
 
 class NavigationState(
     val navHostController: NavHostController
@@ -16,6 +14,10 @@ class NavigationState(
             launchSingleTop = true
             restoreState = true
         }
+    }
+
+    fun navigateToConfirm(id: Int) {
+        navHostController.navigate(Screen.CoffeePointConfirm.getRouteWithArgs(id))
     }
 
     fun navigateToMenu(id: Int) {

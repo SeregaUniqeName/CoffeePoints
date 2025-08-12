@@ -1,5 +1,6 @@
 package com.example.coffeepoints.navigation
 
+import com.example.coffeepoints.navigation.Screen.CoffeePointMenu.ROUTE_FOR_ARGS
 import com.google.gson.Gson
 
 sealed class Screen(
@@ -20,6 +21,16 @@ sealed class Screen(
         }
     }
 
+    data object CoffeePointConfirm : Screen(NAV_COFFEE_POINT_CONFIRM) {
+
+        private const val ROUTE_FOR_ARGS = "coffeePointConfirm"
+
+        fun getRouteWithArgs(id: Int): String {
+            val itemJson = Gson().toJson(id)
+            return "$ROUTE_FOR_ARGS/${itemJson}"
+        }
+    }
+
     companion object {
 
         const val KEY_COFFEE_POINT = "keyCoffeePoint"
@@ -29,6 +40,8 @@ sealed class Screen(
         const val NAV_COFFEE_SHOP_LIST = "coffeeShopList"
         const val NAV_COFFEE_SHOP_MAP = "coffeeShopMap"
         const val NAV_COFFEE_POINT_MENU = "coffeePointMenu/{$KEY_COFFEE_POINT}"
+
+        const val NAV_COFFEE_POINT_CONFIRM = "coffeePointConfirm/{$KEY_COFFEE_POINT}"
 
     }
 }
