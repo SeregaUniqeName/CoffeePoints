@@ -1,15 +1,16 @@
 package com.example.data.di
-
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.core.di.ApplicationScope
 import com.example.data.api.AuthorizationRepository
 import com.example.data.api.CoffeePointMenuRepository
 import com.example.data.api.CoffeePointsRepository
+import com.example.data.api.ConfirmOrderRepository
 import com.example.data.api.MapPointsRepository
 import com.example.data.impl.AuthorizationRepositoryImpl
 import com.example.data.impl.CoffeePointMenuRepositoryImpl
 import com.example.data.impl.CoffeePointsRepositoryImpl
+import com.example.data.impl.ConfirmOrderRepositoryImpl
 import com.example.data.impl.MapPointsRepositoryImpl
 import com.example.data.local.TokenLifetimeStore
 import com.example.data.local.TokenLifetimeStoreImpl
@@ -47,6 +48,10 @@ interface DataModule {
     @ApplicationScope
     @Binds
     fun bindCoffeePointMenuRepository(impl: CoffeePointMenuRepositoryImpl) : CoffeePointMenuRepository
+
+    @ApplicationScope
+    @Binds
+    fun bindConfirmOrderRepository(impl: ConfirmOrderRepositoryImpl) : ConfirmOrderRepository
 
 
     companion object {

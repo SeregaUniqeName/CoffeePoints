@@ -5,6 +5,7 @@ import com.example.authorization.di.AuthComponent
 import com.example.coffeepointslist.di.CoffeePointsComponent
 import com.example.coffeepointsmap.di.MapItemsComponent
 import com.example.coffeepointsmenu.di.CoffeeMenuComponent
+import com.example.confermscreen.di.ConfirmScreenComponent
 import com.example.core.di.ApplicationScope
 import com.example.data.di.DataModule
 import dagger.BindsInstance
@@ -20,6 +21,8 @@ interface ApplicationComponent {
     fun getCoffeePointsScreenComponentFactory() : CoffeePointsComponent.Factory
     fun getCoffeePointsMapScreenComponentFactory() : MapItemsComponent.Factory
     fun getCoffeePointMenuComponentFactory() : CoffeeMenuComponent.Factory
+
+    fun getConfirmOrderComponentFactory() : ConfirmScreenComponent.Factory
 
     @Component.Factory
     interface Factory {

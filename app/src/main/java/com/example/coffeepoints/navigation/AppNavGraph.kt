@@ -15,6 +15,7 @@ fun AppNavGraph(
     coffeeShopListContent: @Composable () -> Unit,
     coffeeShopMapContent: @Composable () -> Unit,
     coffeePointMenuContent: @Composable (Int) -> Unit,
+    confirmScreenContent: @Composable (Int) -> Unit,
 ) {
 
     NavHost(
@@ -44,6 +45,18 @@ fun AppNavGraph(
             val id = it.arguments?.getInt(Screen.KEY_COFFEE_POINT)
                     ?: throw RuntimeException("Args is null")
             coffeePointMenuContent(id)
+        }
+        composable(
+            route = Screen.NAV_COFFEE_POINT_CONFIRM,
+            arguments = listOf(
+                navArgument(Screen.KEY_COFFEE_POINT) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id = it.arguments?.getInt(Screen.KEY_COFFEE_POINT)
+                ?: throw RuntimeException("Args is null")
+            confirmScreenContent(id)
         }
     }
 

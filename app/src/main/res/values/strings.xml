@@ -2,6 +2,10 @@
     <string name="app_name">CoffeePoints</string>
     <string name="password">пароль</string>
     <string name="log_in">войти</string>
+    <string name="coffee_shops">Ближайшие кофейни></string>
+    <string name="order_confirm">Ваш заказ></string>
+    <string name="coffee_shop_menu">Меню></string>
+    <string name="map">Карта></string>
     <string name="password_input_error"><![CDATA[Пароль должен содержать от 6 до 8 символов, хотя бы одну заглавную и строчную латинскую букву, а также хотя бы одно число и спецсимвол (!@#$%^&amp;*)]]></string>
     <string name="password_matches_error">Пароли не совпадают!</string>
     <string name="password_confirm">Повторите пароль</string>
@@ -10,4 +14,8 @@
     <string name="distance">%.2f км от вас</string>
     <string name="go_to_payment">Перейти к оплате</string>
     <string name="price">%d руб</string>
+    <string name="pay_button">Оплатить</string>
+    <string name="order_waiting_time">Время ожидания заказа 15 минут!</string>
+    <string name="gratitude">Спасибо, что выбрали нас!</string>
+
 </resources>

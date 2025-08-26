@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":features:coffeePointsList"))
     implementation(project(":features:coffeePointsMap"))
     implementation(project(":features:coffeePointsMenu"))
+    implementation(project(":features:confirmScreen"))
 
     implementation(libs.navigation.compose)
 

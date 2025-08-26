@@ -1,17 +1,39 @@
 package com.example.coffeepoints.navigation
 
-import com.example.coffeepoints.navigation.Screen.CoffeePointMenu.ROUTE_FOR_ARGS
+import com.example.coffeepoints.R
 import com.google.gson.Gson
 
 sealed class Screen(
-    val route: String
+    val route: String,
+    val titleId: Int,
+    val hasBackButton: Boolean,
 ) {
 
-    data object Registration : Screen(NAV_REGISTRATION)
-    data object LogIn : Screen(NAV_LOGIN)
-    data object CoffeeShopList : Screen(NAV_COFFEE_SHOP_LIST)
-    data object CoffeeShopMap : Screen(NAV_COFFEE_SHOP_MAP)
-    data object CoffeePointMenu : Screen(NAV_COFFEE_POINT_MENU) {
+    data object Registration : Screen(
+        route = NAV_REGISTRATION,
+        titleId = R.string.registration,
+        hasBackButton = false,
+    )
+    data object LogIn : Screen(
+        route =NAV_LOGIN,
+        titleId = R.string.log_in,
+        hasBackButton = false,
+    )
+    data object CoffeeShopList : Screen(
+        route = NAV_COFFEE_SHOP_LIST,
+        titleId = R.string.coffee_shops,
+        hasBackButton = true,
+    )
+    data object CoffeeShopMap : Screen(
+        route = NAV_COFFEE_SHOP_MAP,
+        titleId = R.string.map,
+        hasBackButton = true,
+    )
+    data object CoffeePointMenu : Screen(
+        route = NAV_COFFEE_POINT_MENU,
+        titleId = R.string.coffee_shop_menu,
+        hasBackButton = true,
+    ) {
 
         private const val ROUTE_FOR_ARGS = "coffeePointMenu"
 
@@ -21,7 +43,11 @@ sealed class Screen(
         }
     }
 
-    data object CoffeePointConfirm : Screen(NAV_COFFEE_POINT_CONFIRM) {
+    data object CoffeePointConfirm : Screen(
+        route = NAV_COFFEE_POINT_CONFIRM,
+        titleId = R.string.order_confirm,
+        hasBackButton = true,
+    ) {
 
         private const val ROUTE_FOR_ARGS = "coffeePointConfirm"
 
